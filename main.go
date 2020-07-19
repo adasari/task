@@ -15,9 +15,16 @@ type input struct {
 	Rect []sl.Rect `json:"rects"`
 }
 
+func (i input) Print() {
+	for i, r := range i.Rect {
+		fmt.Printf("%d: Retnalge at %s\n", i+1, r.String())
+	}
+}
+
 func main() {
 	var filePath string
 	flag.StringVar(&filePath, "file", "", "input file path")
+	flag.Parse()
 
 	if filePath == "" {
 		log.Printf("filepath is empty")
@@ -57,9 +64,13 @@ func main() {
 	f := sl.NewFinder()
 	r := f.FindIntersections(input)
 
-	fmt.Printf("lenth of results: %d\n", len(r))
-	for _, i := range r {
-		log.Printf("%s - %+v\n", strings.Join(i.Names, ","), *i.Rect)
+	fmt.Println("Input:")
+	in.Print()
+
+	fmt.Println("Intersections:")
+	for i, r := range r {
+		//log.Printf("%s - %+v\n", strings.Join(r.Names, ","), *r.Rect)
+		fmt.Printf("%d: Between retnalge  %s at %s\n", i+1, strings.Join(r.Names, ","), r.String())
 	}
 
 }

@@ -1,8 +1,13 @@
 package sl
 
+import "fmt"
+
 // Rect .
 type Rect struct {
-	X, Y, W, H int
+	X int `json:"X"`
+	Y int `json:"y"`
+	W int `json:"w"`
+	H int `json:"h"`
 }
 
 // LeftX .
@@ -25,13 +30,23 @@ func (r Rect) BottomY() int {
 	return r.Y - r.H
 }
 
+// String .
+func (r Rect) String() string {
+	return fmt.Sprintf("(%d, %d), w=%d, h=%d", r.X, r.Y, r.W, r.Y)
+}
+
 // Intersect -.
 func (r Rect) Intersect(o *Rect) (bool, *Rect) {
-	// x not intersecting
+	// x not intersecting. TODO : refactor
 	if r.LeftX() < o.LeftX() && r.RightX() < o.LeftX() ||
 		r.LeftX() > o.RightX() && r.LeftX() > o.LeftX() {
 		return false, nil
 	}
+
+	/* if r.RightX() < o.LeftX() ||
+		r.LeftX() > o.RightX() {
+		return false, nil
+	} */
 
 	// y not intersecting
 	if r.BottomY() < o.BottomY() && r.TopY() < o.BottomY() ||

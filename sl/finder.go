@@ -2,8 +2,6 @@ package sl
 
 import (
 	"container/heap"
-	"fmt"
-	"log"
 )
 
 // Finder .
@@ -21,7 +19,7 @@ func (f Finder) FindIntersections(input []NamedRect) []*IntersectedRect {
 	heap.Init(pq)
 
 	for _, r := range input {
-		log.Printf("input : %s, %+v", r.Name, r.Rect)
+		//	log.Printf("input : %s, %+v", r.Name, r.Rect)
 		heap.Push(pq, Point{flag: true, priority: r.LeftX(), NamedRect: r})
 		heap.Push(pq, Point{flag: false, priority: r.RightX(), NamedRect: r})
 	}
@@ -48,7 +46,7 @@ func (f Finder) FindIntersections(input []NamedRect) []*IntersectedRect {
 			continue
 		}
 
-		fmt.Printf("checking end point %d\n", len(activeRectangles))
+		//fmt.Printf("checking end point %d\n", len(activeRectangles))
 		// end point -> if temp is not empty, means it is intersecting with existing points in temp.
 		// remove the start point of self. determine the intersections.
 		toBeRemoved := 0
